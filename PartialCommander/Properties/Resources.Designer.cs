@@ -61,6 +61,15 @@ namespace PartialCommander.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to copy .
+        /// </summary>
+        public static string copy {
+            get {
+                return ResourceManager.GetString("copy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to C:\.
         /// </summary>
         public static string defaultPath {
@@ -70,11 +79,29 @@ namespace PartialCommander.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to drive.
+        /// </summary>
+        public static string drive {
+            get {
+                return ResourceManager.GetString("drive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ....
         /// </summary>
         public static string goToParentFolder {
             get {
                 return ResourceManager.GetString("goToParentFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to path:.
+        /// </summary>
+        public static string path {
+            get {
+                return ResourceManager.GetString("path", resourceCulture);
             }
         }
         

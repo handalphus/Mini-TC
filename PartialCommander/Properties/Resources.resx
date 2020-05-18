@@ -117,11 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="copy" xml:space="preserve">
+    <value>copy </value>
+  </data>
   <data name="defaultPath" xml:space="preserve">
     <value>C:\</value>
   </data>
+  <data name="drive" xml:space="preserve">
+    <value>drive</value>
+  </data>
   <data name="goToParentFolder" xml:space="preserve">
     <value>...</value>
+  </data>
+  <data name="path" xml:space="preserve">
+    <value>path:</value>
   </data>
   <data name="signOfFolder" xml:space="preserve">
     <value>&lt;D&gt;</value>

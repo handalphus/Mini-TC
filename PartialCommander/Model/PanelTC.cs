@@ -86,23 +86,58 @@ namespace PartialCommander.Model
         #endregion
 
         
-        public void Copy(string pathToFile, string desiredLocation)
+        public void Copy(string path, string desiredLocation)
         {
-           
-
-            string nameOfFile = Path.GetFileName(pathToFile);
-            if (!File.Exists(desiredLocation + nameOfFile))
+            if (path.StartsWith(Properties.Resources.signOfFolder))
             {
-                File.Copy(CurrentPath + nameOfFile, desiredLocation + nameOfFile);
+                path = PathNavigation.ClearDirectory(path);
+                CopyDirectory(path, desiredLocation);
+
             }
-            
+            else
+            {
+                string nameOfFile = Path.GetFileName(path);
+                if (!File.Exists(desiredLocation + nameOfFile))
+                {
+                    File.Copy(CurrentPath + nameOfFile, desiredLocation + nameOfFile);
+                }
+
+            }
+
         }
-       public bool IsCopyingPossible(string path)
+
+        private static void CopyDirectory(string path, string desiredLocation)
+        {
+            DirectoryInfo directory = new DirectoryInfo(path);
+            string dirName = directory.Name;
+            string desiredDirectoryName = desiredLocation + dirName + @"\";
+            if (!Directory.Exists(desiredDirectoryName))
+            {
+                Directory.CreateDirectory(desiredDirectoryName);
+            }
+            DirectoryInfo[] directories = directory.GetDirectories();
+            FileInfo[] files = directory.GetFiles();
+            for (int i = 0; i < files.Length; i++)
+            {
+                if (PathNavigation.IsFileAccessible(files[i].FullName))
+                {
+                    string tmpPath = Path.Combine(desiredDirectoryName, files[i].Name);
+                    files[i].CopyTo(tmpPath, false);
+                }
+            }
+            for (int i = 0; i < directories.Length; i++)
+            {
+                string tmpPath = Path.Combine(desiredDirectoryName, directories[i].Name);
+                CopyDirectory(directories[i].FullName, desiredDirectoryName);
+                }
+        }
+
+        public bool IsCopyingPossible(string path)
         {
             if (path.StartsWith(Properties.Resources.signOfFolder))
             {
                
-                return false;
+                return PathNavigation.IsLocationAccessible(PathNavigation.ClearDirectory(path));
             }
             else if (path == Properties.Resources.goToParentFolder)
             {

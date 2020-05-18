@@ -24,7 +24,7 @@
                 RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type UserControl}}}" 
                      DockPanel.Dock="Right" HorizontalAlignment="Right" Height="25" Width="250" 
                      HorizontalContentAlignment="Left" VerticalAlignment="Center" Padding="3" Margin="10,0"/>
-            <Label Content="path:" DockPanel.Dock="Right" HorizontalContentAlignment="Right" VerticalAlignment="Center" Height="25" Margin="10,0"/>
+            <Label x:Name ="pathLabel" Content="{Binding Path=PathCaption}" DockPanel.Dock="Right" HorizontalContentAlignment="Right" VerticalAlignment="Center" Height="25" Margin="10,0"/>
         </DockPanel>
         <DockPanel Grid.Column="0" Grid.Row="1">
             <ComboBox x:Name ="drives" DockPanel.Dock="Right" Width="50" HorizontalAlignment="Right" DropDownOpened="drives_DropDownOpened"
@@ -34,7 +34,7 @@
                       SelectedValue="{Binding Path=CurrentDrive, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
                 RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type UserControl}}}" SelectedIndex="0">
             </ComboBox>
-            <Label Content="drive:" DockPanel.Dock="Right" HorizontalContentAlignment="Right" Height="25" Margin="10,0"/>
+            <Label Content="{Binding Path = DriveCaption}" DockPanel.Dock="Right" HorizontalContentAlignment="Right" Height="25" Margin="10,0"/>
         </DockPanel>
         <ListBox x:Name="currentContent" Grid.Column="0" Grid.Row="2" Margin="10" MouseDoubleClick="currentContent_MouseDoubleClick"
                  ItemsSource="{Binding Path=DirectoryContent, Mode=OneWay, 

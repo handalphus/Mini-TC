@@ -179,8 +179,15 @@ namespace PartialCommander.Kontrolki
         public static readonly DependencyProperty ChosenElementFromListProperty =
             DependencyProperty.Register("ChosenElementFromList", typeof(string), typeof(KontrolkaPanelTC), new PropertyMetadata(null));
 
-
-
+        public string PathCaption
+        {
+            get => Properties.Resources.path;
+        }
+        public string DriveCaption
+        {
+            get => Properties.Resources.drive;
+        }
+        
 
         #endregion
 

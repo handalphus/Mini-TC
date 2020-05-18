@@ -40,15 +40,20 @@ namespace PartialCommander.ViewModel
             CurrentDrive2 = Properties.Resources.defaultPath;
         }
      
-        #region interfejs publiczny
-
+       
         private string currentItem1;
         private string currentItem2;
         private string highlightedPath1;
         private string highlightedPath2;
         private string highlightedPath;
         private PanelTC activePanel;
+        #region stałe napisowe:
+        public string CopyCaption { get => Properties.Resources.copy; }
+        public string DriveCaption { get => Properties.Resources.drive; }
+        public string PathCaption { get => Properties.Resources.path; }
        
+        #endregion
+        #region interfejs publiczny
 
         #region panel1
         public string HighlightedPath1
