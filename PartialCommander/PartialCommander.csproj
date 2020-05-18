@@ -61,6 +61,7 @@
     <Compile Include="Kontrolki\PanelTC.xaml.cs">
       <DependentUpon>PanelTC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\PathNavigation.cs" />
     <Compile Include="ViewModel\MiniTCVM.cs" />
     <Compile Include="ViewModel\BaseClass\RelayCommand.cs" />
     <Compile Include="ViewModel\BaseClass\ViewModelBase.cs" />

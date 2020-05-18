@@ -6,10 +6,10 @@ using System.Windows.Input;
 
 namespace PartialCommander.ViewModel
 {
-   
+
     internal class MiniTCVM : ViewModelBase
     {
-        
+
         //instancja modelu
         private MiniTC miniTC = new MiniTC();
         public PanelTC Panel1
@@ -33,31 +33,34 @@ namespace PartialCommander.ViewModel
         //konstruktor
         public MiniTCVM()
         {
-            miniTC.InitializePanels(defaultPath, defaultPath);
-            CurrentPath1 = defaultPath;
-            CurrentPath2 = defaultPath;
-            CurrentDrive1 = defaultPath;
-            CurrentDrive2 = defaultPath;
+            miniTC.InitializePanels(Properties.Resources.defaultPath, Properties.Resources.defaultPath);
+            CurrentPath1 = Properties.Resources.defaultPath;
+            CurrentPath2 = Properties.Resources.defaultPath;
+            CurrentDrive1 = Properties.Resources.defaultPath;
+            CurrentDrive2 = Properties.Resources.defaultPath;
         }
-        private readonly string goToParentFolder = "...";
-        private readonly string signOfFolder = "<D>";
-        private readonly string defaultPath = @"C:\";
-
+     
         #region interfejs publiczny
-       
+
         private string currentItem1;
         private string currentItem2;
         private string highlightedPath1;
         private string highlightedPath2;
+        private string highlightedPath;
+        private PanelTC activePanel;
+       
+
         #region panel1
         public string HighlightedPath1
         {
 
-            get => highlightedPath1;
-            
+           
+
             set
             {
-                highlightedPath1 = value;
+                highlightedPath = value;
+                activePanel = miniTC.panels[0];
+                
             }
         }
 
@@ -108,16 +111,20 @@ namespace PartialCommander.ViewModel
             }
         }
         #endregion
+
         #region panel2
 
         public string HighlightedPath2
         {
 
-            get => highlightedPath2;
+           
 
             set
             {
-                highlightedPath2 = value;
+                highlightedPath = value;
+                //po zaznaczeniu ścieżki na 2 panelu, 2 panel jest aktywny, poprzednia ścieżka jest nullem
+                activePanel = miniTC.panels[1];
+               
             }
         }
 
@@ -167,7 +174,7 @@ namespace PartialCommander.ViewModel
                 onPropertyChanged(nameof(CurrentPath2), nameof(Content2));
             }
         }
-        
+
         #endregion
         #endregion
 
@@ -208,32 +215,44 @@ namespace PartialCommander.ViewModel
         }
 
         private ICommand _copy = null;
-        //public ICommand Copy
-        //{
-        //    get
-        //    {
-        //        if (_copy == null)
-        //        {
-        //            _copy = new RelayCommand(arg =>
-        //            {
-        //                miniTC.panels[0].Copy(highlitedPath1, miniTC.panels[1]);
-        //            }, arg => true);
-        //        }
-        //        return _getDrives;
-        //    }
-        //}
-        //private ICommand _doubleClick = null;
-        //public ICommand DoubleClick
-        //{
-        //    get
-        //    {
-        //        if (_doubleClick == null)
-        //        {
-        //            _doubleClick= new RelayCommand(arg => {}, arg => {  })
-        //        }
-        //        return _doubleClick;
-        //    }
-        //}
+        public ICommand Copy
+        {
+            get
+            {
+                if (_copy == null)
+                {
+                    _copy = new RelayCommand(arg =>
+                    {
+                        if (activePanel == miniTC.panels[0])
+                        {
+                            activePanel.Copy(highlightedPath,CurrentPath2);
+                            onPropertyChanged(nameof(Content2));
+                        }
+                        else
+                        {
+                            activePanel.Copy(highlightedPath, CurrentPath1);
+                            onPropertyChanged(nameof(Content1));
+                        }
+                    },
+                    arg => {
+                        if (!string.IsNullOrEmpty(highlightedPath))
+                        {
+                            if (activePanel == miniTC.panels[0])
+                            {
+                                return activePanel.IsCopyingPossible(highlightedPath);
+                            }
+                            else
+                            {
+                                return activePanel.IsCopyingPossible(highlightedPath);
+                            }
+                        }
+                        else return false;
+                    }
+                    ) ;
+                }
+                return _copy;
+            }
+        }
 
         private ICommand _changeDirectory1 = null;
         public ICommand ChangeDirectory1
@@ -244,9 +263,9 @@ namespace PartialCommander.ViewModel
                 {
                     _changeDirectory1 = new RelayCommand(arg =>
                     {
-                        
-                          CurrentPath1 = HighlightedPath1;
-                        
+
+                        CurrentPath1 = highlightedPath;
+
 
                     }, arg => true);
                 }
@@ -262,9 +281,9 @@ namespace PartialCommander.ViewModel
                 {
                     _changeDirectory2 = new RelayCommand(arg =>
                     {
-                        
-                          CurrentPath2 = HighlightedPath2;
-                        
+
+                        CurrentPath2 = highlightedPath;
+
 
                     }, arg => true);
                 }

@@ -27,7 +27,7 @@
                                     DirectoryContent="{Binding Path=Content1}"
                                     Drives="{Binding Path=Drives1}"
                                     CurrentDrive="{Binding Path=CurrentDrive1, Mode=TwoWay}"
-                                    HighlightedElement="{Binding Path=HighlightedPath1, Mode=OneWayToSource}"
+                                    HighlightedElement="{Binding Path=HighlightedPath1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                    >
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="ListItemDoubleClicked">
@@ -46,7 +46,7 @@
                                     DirectoryContent="{Binding Path=Content2}"
                                     Drives="{Binding Path=Drives2}"
                                     CurrentDrive="{Binding Path=CurrentDrive2, Mode=TwoWay}"
-                                    HighlightedElement="{Binding Path=HighlightedPath2, Mode=OneWayToSource}">
+                                    HighlightedElement="{Binding Path=HighlightedPath2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="ListItemDoubleClicked">
                     <i:InvokeCommandAction Command="{Binding ChangeDirectory2}" />
@@ -58,6 +58,6 @@
 
 
         </kontrolka:KontrolkaPanelTC>
-        <Button Grid.ColumnSpan="2" Grid.Row="1" Height="50" Width="200" VerticalAlignment="Center" />
+        <Button Grid.ColumnSpan="2" Grid.Row="1" Height="50" Width="200" VerticalAlignment="Center" Command="{Binding Copy}"/>
     </Grid>
 </Window>

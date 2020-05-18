@@ -39,7 +39,7 @@
         <ListBox x:Name="currentContent" Grid.Column="0" Grid.Row="2" Margin="10" MouseDoubleClick="currentContent_MouseDoubleClick"
                  ItemsSource="{Binding Path=DirectoryContent, Mode=OneWay, 
             RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type UserControl}}}"
-                 SelectedItem="{Binding Path=HighlightedElement, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged,
+                 SelectedItem="{Binding Path=HighlightedElement, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
                 RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type UserControl}}}"
                  Focusable="False"/>
     </Grid>
